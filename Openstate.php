@@ -17,7 +17,7 @@ class Openstate
 {
 
 	// An API key can be obtained at http://services.sunlightlabs.com/
-	public $api_key = '316f4d2867b64437a8077ec146da0d93';
+	public $api_key = '';
 	public $api_url = 'http://openstates.org/api/v1';
 	public $decode;
 	
