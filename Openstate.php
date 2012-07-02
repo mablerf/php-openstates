@@ -336,12 +336,12 @@ class Openstate
 			if($query = $this->curl->get($gurl, $params))
 			{
 				$rslt = json_decode($query);
-				
-				if(isset($rslt->results[0]) && isset($rslt->results[0]->geometry->location->lat) && isset($rslt->results[0]->geometry->location->lng))
+				if($rslt->status == 'OK')
 				{
 					$out = array('lat' => $rslt->results[0]->geometry->location->lat, 'long' => $rslt->results[0]->geometry->location->lng);
 					return $out;		
 				}
+				// @todo add stuff here to better handle the other possible responses.
 			}
 		}
 		return FALSE;
