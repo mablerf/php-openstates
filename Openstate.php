@@ -321,7 +321,7 @@ class Openstate
 	}
 	
 	/**
-	 * Use Google Maps API to get the lat and long for an address.
+	 * Use Google Geocoding API to get the lat and long for an address.
 	 * 
 	 * @param string $address Address to locate
 	 * @return array $location Associative array containing 'lat' and 'long'.
