@@ -29,11 +29,19 @@ echo $os->getStateInfo('me');
 
 // echo $os->committeeLookup('MDC000065');
 
-$committee_search = array(
-		'state' => 'md', 
-		'chamber' => 'upper'
-		);
+// $committee_search = array(
+// 		'state' => 'md', 
+// 		'chamber' => 'upper'
+// 		);
 
-echo $os->committeeSearch($committee_search);
+// echo $os->committeeSearch($committee_search);
+
+// $event_search = array(
+// 		'state' => 'tx',
+// 		'type' => 'committee:meeting'
+// 		);
+// echo $os->eventSearch($event_search);
+
+//echo $os->eventLookup('TXE00004925');
 
 ?>
