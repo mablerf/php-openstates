@@ -5,7 +5,7 @@ require_once('Openstate.php');
 
 $os = new Openstate();
 
-echo $os->getStateInfo('me');
+//echo $os->getStateInfo('me');
 
 //echo $os->legislatorGeoLookup('35.81336', '-78.76648');
 
@@ -43,5 +43,7 @@ echo $os->getStateInfo('me');
 // echo $os->eventSearch($event_search);
 
 //echo $os->eventLookup('TXE00004925');
+
+echo $os->legislatorLookupByAddress('110 8th St. Troy, NY 12180');
 
 ?>

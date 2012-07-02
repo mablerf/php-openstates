@@ -19,6 +19,7 @@ class Openstate
 	public $api_key = '';
 	public $api_url = 'http://openstates.org/api/v1';
 	public $decode;
+	public $google_url = 'http://maps.googleapis.com/maps/api/geocode/json';
 	
 	public function __construct($api_key = null)
 	{
@@ -315,6 +316,50 @@ class Openstate
 			var_dump($params);
 			$query = $this->curl->get($url, $params);
 			return $this->parseQuery($query);
+		}
+		return FALSE;
+	}
+	
+	/**
+	 * Use Google Maps API to get the lat and long for an address.
+	 * 
+	 * @param string $address Address to locate
+	 * @return array $location Associative array containing 'lat' and 'long'.
+	 */
+	private function getLatLong($address)
+	{
+		if($address)
+		{
+			$gurl = $this->google_url;
+			$params['address'] = urlencode($address);
+			$params['sensor'] = 'false';
+			if($query = $this->curl->get($gurl, $params))
+			{
+				$rslt = json_decode($query);
+				
+				if(isset($rslt->results[0]) && isset($rslt->results[0]->geometry->location->lat) && isset($rslt->results[0]->geometry->location->lng))
+				{
+					$out = array('lat' => $rslt->results[0]->geometry->location->lat, 'long' => $rslt->results[0]->geometry->location->lng);
+					return $out;		
+				}
+			}
+		}
+		return FALSE;
+	}
+	
+	/**
+	 * Use getLatLong to get the lat and long for an address, then legislatorGeoLookup to get the legislators that represent the address.
+	 * 
+	 * @param string $address Street address to find legislators for
+	 */
+	public function legislatorLookupByAddress($address)
+	{
+		if($address)
+		{
+			if($loc = $this->getLatLong($address))
+			{
+				return $this->legislatorGeoLookup($loc['lat'], $loc['long']);
+			}
 		}
 		return FALSE;
 	}
